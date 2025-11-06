@@ -9,6 +9,26 @@
  * @param <V> тип данных значений
  */
 public class MyHashMap<K, V> {
+    /**
+     * Класс ячейка для {@link MyHashMap  MyHashMap}
+     *
+     * @param <K> тип данных ключей
+     * @param <V> тип данных значений
+     */
+    private static class Node<K, V> {
+        final K key;
+        V data;
+        final int hash;
+        Node<K, V> nextNode;
+
+        Node(K key, V data) {
+            this.key = key;
+            this.data = data;
+            this.hash = key.hashCode();
+            this.nextNode = null;
+        }
+    }
+
     private Node<K, V>[] nodes;
     private int hashMapSize;
     private final float loadFactor;
@@ -64,18 +84,18 @@ public class MyHashMap<K, V> {
      */
     public void put(K key, V value) {
         Node<K, V> newNode = new Node<>(key, value);
-        int hash = newNode.getHash();
+        int hash = newNode.hash;
         int index = getIndex(hash);
         Node<K, V> head = nodes[index];
         Node<K, V> curr = head;
         while (curr != null) {
-            if (curr.getKey().equals(key)) {
-                curr.setData(newNode.getData());
+            if (curr.key.equals(key)) {
+                curr.data = newNode.data;
                 return;
             }
-            curr = curr.getNextNode();
+            curr = curr.nextNode;
         }
-        newNode.setNextNode(head);
+        newNode.nextNode = head;
         nodes[index] = newNode;
         hashMapSize++;
         if (hashMapSize > nodes.length * loadFactor) {
@@ -85,23 +105,25 @@ public class MyHashMap<K, V> {
 
     /**
      * Метод изменения выдающий значение по ключу
+     *
      * @param key ключ
      * @return значение по ключу, если такой ключ не найден, то возвращает null
      */
     public V get(K key) {
         int index = getIndex(key.hashCode());
         Node<K, V> head = nodes[index];
-        while (head != null){
-            if (head.getKey().equals(key)){
-                return head.getData();
+        while (head != null) {
+            if (head.key.equals(key)) {
+                return head.data;
             }
-            head = head.getNextNode();
+            head = head.nextNode;
         }
         return null;
     }
 
     /**
      * Метод удаления по ключу
+     *
      * @param key ключ
      */
     public void remove(K key) {
@@ -109,22 +131,23 @@ public class MyHashMap<K, V> {
         Node<K, V> head = nodes[index];
         Node<K, V> pre = null;
         while (head != null) {
-            if (head.getKey().equals(key)) {
+            if (head.key.equals(key)) {
                 if (pre == null) {
-                    nodes[index] = head.getNextNode();
+                    nodes[index] = head.nextNode;
                 } else {
-                    pre.setNextNode(head.getNextNode());
+                    pre.nextNode = head.nextNode;
                 }
                 hashMapSize -= 1;
                 return;
             }
             pre = head;
-            head = head.getNextNode();
+            head = head.nextNode;
         }
     }
 
     /**
      * Метод возвращает количество пар ключ-значение
+     *
      * @return количество пар ключ-значение
      */
     public int size() {
@@ -133,6 +156,7 @@ public class MyHashMap<K, V> {
 
     /**
      * Метод возвращает true, если HashMap не содержит пар ключ-значение
+     *
      * @return true, если HashMap не содержит пар ключ-значение
      */
     public boolean isEmpty() {
@@ -149,8 +173,8 @@ public class MyHashMap<K, V> {
         hashMapSize = 0;
         for (Node<K, V> head : oldNodes) {
             while (head != null) {
-                put(head.getKey(), head.getData());
-                head = head.getNextNode();
+                put(head.key, head.data);
+                head = head.nextNode;
             }
         }
     }
