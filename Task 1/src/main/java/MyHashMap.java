@@ -57,13 +57,6 @@ public class MyHashMap<K, V> {
     }
 
     /**
-     * Метод вычисления индекса элемента в массиве
-     */
-    private int getIndex(int hash) {
-        return Math.abs(hash % (nodes.length - 1));
-    }
-
-    /**
      * Метод добавления элементов в HashMap
      *
      * @param key   ключ
@@ -90,21 +83,6 @@ public class MyHashMap<K, V> {
         }
     }
 
-    /**
-     * Метод изменения размера HashMap и пересчета индексов
-     */
-    @SuppressWarnings("unchecked")
-    private void rehash() {
-        Node<K, V>[] oldNodes = nodes;
-        nodes = new Node[nodes.length * 2];
-        hashMapSize = 0;
-        for (Node<K, V> head : oldNodes) {
-            while (head != null) {
-                put(head.getKey(), head.getData());
-                head = head.getNextNode();
-            }
-        }
-    }
     /**
      * Метод изменения выдающий значение по ключу
      * @param key ключ
@@ -160,4 +138,28 @@ public class MyHashMap<K, V> {
     public boolean isEmpty() {
         return hashMapSize == 0;
     }
+
+    /**
+     * Метод изменения размера HashMap и пересчета индексов
+     */
+    @SuppressWarnings("unchecked")
+    private void rehash() {
+        Node<K, V>[] oldNodes = nodes;
+        nodes = new Node[nodes.length * 2];
+        hashMapSize = 0;
+        for (Node<K, V> head : oldNodes) {
+            while (head != null) {
+                put(head.getKey(), head.getData());
+                head = head.getNextNode();
+            }
+        }
+    }
+
+    /**
+     * Метод вычисления индекса элемента в массиве
+     */
+    private int getIndex(int hash) {
+        return Math.abs(hash % (nodes.length - 1));
+    }
+
 }
