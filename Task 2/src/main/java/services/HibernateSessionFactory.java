@@ -23,5 +23,4 @@ public class HibernateSessionFactory {
         }
         return sessionFactory;
     }
-
 }
