@@ -17,8 +17,14 @@ public class UserDAO implements DAO<User> {
     public User findById(int id) {
         logger.info("Поиск пользователя с id: {}", id);
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
-            logger.info("Пользователя с id: {} - найден", id);
-            return session.find(User.class, id);
+            User foundUser = session.find(User.class, id);
+            if (foundUser != null) {
+                logger.info("Пользователя с id: {} - найден", id);
+                return foundUser;
+            } else {
+                logger.info("Пользователя с id: {} - не найден", id);
+                return null;
+            }
         } catch (Exception e) {
             logger.info("Пользователя с id: {} - не найден", id);
             throw new RuntimeException("Ошибка поиска");
@@ -41,14 +47,14 @@ public class UserDAO implements DAO<User> {
     @Override
     public void save(User user) {
         String massage = "записи";
-        logger.info("Попытка сохранения пользователя" + user.toString());
+        logger.info("Попытка сохранения пользователя " + user.toString());
         tryTransaction(() -> session.persist(user), massage);
     }
 
     @Override
     public void update(User user) {
         String massage = "обновления";
-        logger.info("Попытка обновления данных пользователя" + user.toString());
+        logger.info("Попытка обновления данных пользователя " + user.toString());
         tryTransaction(() -> session.merge(user), massage);
     }
 

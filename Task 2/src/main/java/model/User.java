@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+
 @Entity
 @Table(name = "users", schema = "users")
 public class User {
@@ -19,8 +20,10 @@ public class User {
     @Column(name = "created_at")
     private LocalDate created_at;
 
-    public User(){}
-    public User(String name, String email, int age){
+    public User() {
+    }
+
+    public User(String name, String email, int age) {
         this.name = name;
         this.email = email;
         this.age = age;
@@ -76,5 +79,9 @@ public class User {
                 ", age=" + age +
                 ", created_at=" + created_at +
                 '}';
+    }
+
+    public void print() {
+        System.out.printf("ID: %d Имя: %s email: %s Лет: %d создан: %s\n", this.getId(), this.getName(),  this.getEmail(), this.getAge(), this.getCreated_at());
     }
 }
