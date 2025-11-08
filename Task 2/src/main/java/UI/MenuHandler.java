@@ -53,6 +53,15 @@ public class MenuHandler {
         }
     }
 
+    private static void processUpdateMenu(int choice) throws IOException {
+        switch (choice) {
+            case 1 -> updateName();
+            case 2 -> updateEMail();
+            case 3 -> updateAge();
+            case 4 -> start();
+        }
+    }
+
     private static void deleteUser() throws IOException {
         try {
             System.out.println("Введите ID");
@@ -65,7 +74,7 @@ public class MenuHandler {
                 System.out.println("Запись не найдена");
             }
         } catch (Exception e) {
-            System.out.println("Данные не получены");
+            System.out.println("Удаление не удалось");
         } finally {
             start();
         }
@@ -80,34 +89,43 @@ public class MenuHandler {
             String email = readString();
             System.out.println("Введите Возраст");
             int age = readInt();
-            User user = new User(name, email, age);
-            System.out.println("Сохранение...");
-            userService.saveUser(user);
+            currentUser = new User(name, email, age);
         } catch (Exception e) {
             System.out.println("Некорректный ввод!!!");
             createUser();
+        }
+
+        try {
+            System.out.println("Сохранение...");
+            userService.saveUser(currentUser);
+        } catch (Exception e) {
+            System.out.println("Сохранение не удалось");
         } finally {
             start();
         }
     }
 
-    private static void findById() {
+    private static void findById() throws IOException {
         try {
             find();
             currentUser = null;
         } catch (Exception e) {
-            System.out.println("Такой записи нет");
+            System.out.println("Поиск не удался");
+        } finally {
+            start();
         }
     }
 
-    private static void findForUpdate() {
+    private static void findForUpdate() throws IOException {
         try {
             find();
             Menu.showUpdateMenu();
             currentMenu = menuOptions.get("showUpdateMenu");
             processInput(getAnswer());
         } catch (Exception e) {
-            System.out.println("Такой записи нет");
+            System.out.println("Поиск не удался");
+        } finally {
+            start();
         }
     }
 
@@ -158,15 +176,6 @@ public class MenuHandler {
             System.out.println("Данные не получены");
         } finally {
             start();
-        }
-    }
-
-    private static void processUpdateMenu(int choice) throws IOException {
-        switch (choice) {
-            case 1 -> updateName();
-            case 2 -> updateEMail();
-            case 3 -> updateAge();
-            case 4 -> start();
         }
     }
 
