@@ -12,7 +12,5 @@
     <property name="connection.username">test</property>
     <!-- DB Password -->
     <property name="connection.password">test</property>
-    <!-- DB Dialect -->
-    <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
   </session-factory>
 </hibernate-configuration>
