@@ -23,7 +23,7 @@ public class UserDAO implements DAO<User> {
     public List<User> findAll() {
         String SELECT = "From User";
         try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
-            return session.createQuery(SELECT,User.class).getResultList();
+            return session.createQuery(SELECT, User.class).getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Ошибка получения всех");
         }
@@ -32,24 +32,24 @@ public class UserDAO implements DAO<User> {
     @Override
     public void save(User user) {
         String massage = "Ошибка записи";
-        tryTransaction( () -> session.persist(user), massage);
+        tryTransaction(() -> session.persist(user), massage);
     }
 
     @Override
     public void update(User user) {
         String massage = "Ошибка обновления";
-        tryTransaction( () -> session.merge(user), massage);
+        tryTransaction(() -> session.merge(user), massage);
     }
 
     @Override
     public void delete(User user) {
         String massage = "Ошибка удаления";
-        tryTransaction( () -> session.remove(user), massage);
+        tryTransaction(() -> session.remove(user), massage);
     }
 
     private void tryTransaction(Runnable runnable, String massage) {
         Transaction transaction = null;
-        try (Session session= HibernateSessionFactory.getSessionFactory().openSession()) {
+        try (Session session = HibernateSessionFactory.getSessionFactory().openSession()) {
             this.session = session;
             transaction = this.session.beginTransaction();
             runnable.run();
