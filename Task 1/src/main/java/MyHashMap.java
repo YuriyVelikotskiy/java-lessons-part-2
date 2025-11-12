@@ -89,7 +89,7 @@ public class MyHashMap<K, V> {
         Node<K, V> head = nodes[index];
         Node<K, V> curr = head;
         while (curr != null) {
-            if (curr.key.equals(key)) {
+            if (curr.hash == hash && curr.key.equals(key)) {
                 curr.data = newNode.data;
                 return;
             }
