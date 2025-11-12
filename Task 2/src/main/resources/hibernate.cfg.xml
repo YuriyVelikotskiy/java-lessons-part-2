@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- BD Schema -->
+    <property name="connection.url">jdbc:postgresql://localhost/postgres</property>
+    <!-- DB Driver -->
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <!-- DB User -->
+    <property name="connection.username">test</property>
+    <!-- DB Password -->
+    <property name="connection.password">test</property>
+  </session-factory>
+</hibernate-configuration>
