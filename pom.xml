@@ -11,6 +11,7 @@
     <modules>
         <module>task-1</module>
         <module>task-2</module>
+        <module>task-3</module>
     </modules>
 
     <properties>
@@ -22,6 +23,8 @@
         <hibernate.version>7.1.6.Final</hibernate.version>
         <postgresql.version>42.7.8</postgresql.version>
         <logback.classic.version>1.4.11</logback.classic.version>
+
+        <maven.surefire.plugin>3.2.5</maven.surefire.plugin>
     </properties>
 
     <dependencies>
@@ -51,4 +54,19 @@
             <version>${logback.classic.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- surefire plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin}</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>
