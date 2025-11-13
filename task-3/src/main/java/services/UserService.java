@@ -6,9 +6,14 @@ import java.util.List;
 
 public class UserService {
 
-    private final DAO<User> userDAO = new UserDAO();
+    private final DAO<User> userDAO;
 
-    public UserService() {
+    public UserService(){
+        this.userDAO = new UserDAO();
+    }
+
+    public UserService(UserDAO userDAO){
+        this.userDAO = userDAO;
     }
 
     public User findUser(int id) {
