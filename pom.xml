@@ -25,6 +25,8 @@
         <logback.classic.version>1.4.11</logback.classic.version>
         <lombok.version>1.18.30</lombok.version>
         <mockito.core.version>5.20.0</mockito.core.version>
+        <testcontainers.version>2.0.1</testcontainers.version>
+        <testcontainers.postgresql.version>1.21.3</testcontainers.postgresql.version>
 
         <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
         <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
@@ -70,6 +72,20 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- testcontainers -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers-junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${testcontainers.postgresql.version}</version>
             <scope>test</scope>
         </dependency>
 

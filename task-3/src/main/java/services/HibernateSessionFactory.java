@@ -23,4 +23,11 @@ public class HibernateSessionFactory {
         }
         return sessionFactory;
     }
+
+    public static void setUp(Configuration configuration){
+        if (sessionFactory != null){
+            sessionFactory.close();
+        }
+        sessionFactory = configuration.buildSessionFactory();
+    }
 }
