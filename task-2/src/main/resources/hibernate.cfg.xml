@@ -12,5 +12,6 @@
     <property name="connection.username">test</property>
     <!-- DB Password -->
     <property name="connection.password">test</property>
+    <property name="hbm2ddl.auto">update</property>
   </session-factory>
 </hibernate-configuration>
