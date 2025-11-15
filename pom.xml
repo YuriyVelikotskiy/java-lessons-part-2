@@ -104,6 +104,10 @@
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.core.version}/mockito-core-${mockito.core.version}.jar
+                        -Xshare:off
+                    </argLine>
                 </configuration>
             </plugin>
             <!-- lombok plugin -->
