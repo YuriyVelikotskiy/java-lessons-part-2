@@ -2,7 +2,6 @@ package services;
 
 import model.User;
 
-
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
